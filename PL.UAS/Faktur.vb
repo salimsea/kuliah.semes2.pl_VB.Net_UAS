@@ -1,5 +1,9 @@
 ﻿Public Class Faktur
     Dim Loading As New Loading()
+    Dim BarangForm As New Barang()
+    Dim PelangganForm As New Pelanggan()
+
+
     Public Sub GetData()
         Loading.ShowDialog()
 
@@ -100,6 +104,8 @@
             Dim CurrentCell As DataGridViewCell = DataGridView1.CurrentCell
             Dim row As Integer = CurrentCell.RowIndex
             Dim KdBarang, NamaBarang, Harga, Jumlah, JumlahLama, JumlahRead, TotalHarga, TotalHargaLama As String
+            Dim Stok As Integer
+            JumlahLama = 0
 
             If String.IsNullOrEmpty(txt_no_faktur.Text) Then
                 MessageBox.Show("Buat nomor faktur terlebih dahulu!", "Info")
@@ -128,10 +134,14 @@
                         NamaBarang = rek.Fields("nama").Value
                         Harga = rek.Fields("harga").Value
                         TotalHarga = rek.Fields("harga").Value * Jumlah
+                        rek.Close()
 
-                        DataGridView1.Rows(row).Cells(1).Value = NamaBarang
-                        DataGridView1.Rows(row).Cells(2).Value = Harga
-                        DataGridView1.Rows(row).Cells(4).Value = TotalHarga
+                        Sql = String.Format("SELECT * FROM tb_barang where id_barang = '{0}'", KdBarang)
+                        rek.Open(Sql, kon, 3, 2)
+                        Stok = 0
+                        If Not rek.EOF Then
+                            Stok = rek.Fields("stok").Value
+                        End If
 
                         rek.Close()
                         Sql = String.Format("SELECT * FROM tb_transaksi where no_faktur = '{0}' AND id_barang = {1}", txt_no_faktur.Text, KdBarang)
@@ -140,14 +150,52 @@
                             JumlahLama = rek.Fields("jml_beli").Value
                         End If
 
+                        Sql = String.Format("UPDATE tb_barang SET stok = {0} WHERE id_barang = {1}", CInt(Stok) + CInt(JumlahLama), KdBarang)
+                        kon.Execute(Sql)
+
+                        rek.Close()
+                        Sql = String.Format("SELECT * FROM tb_barang where id_barang = '{0}'", KdBarang)
+                        rek.Open(Sql, kon, 3, 2)
+                        Stok = 0
+                        If Not rek.EOF Then
+                            Stok = rek.Fields("stok").Value
+                            rek.Close()
+                            If Stok < JumlahRead Then
+                                DataGridView1.Rows(row).Cells(0).Value = ""
+                                DataGridView1.Rows(row).Cells(1).Value = ""
+                                DataGridView1.Rows(row).Cells(2).Value = ""
+                                DataGridView1.Rows(row).Cells(3).Value = ""
+                                DataGridView1.Rows(row).Cells(4).Value = ""
+
+                                MessageBox.Show("Stok barang sudah habis", "Info")
+                                tutup()
+                                Return
+
+                            End If
+                        End If
+
+
+                        DataGridView1.Rows(row).Cells(1).Value = NamaBarang
+                        DataGridView1.Rows(row).Cells(2).Value = Harga
+                        DataGridView1.Rows(row).Cells(4).Value = TotalHarga
+
+
+
                         TotalHarga = If(String.IsNullOrEmpty(txt_sub_total.Text), 0, CInt(txt_sub_total.Text)) + CInt(TotalHarga) - CInt(TotalHargaLama)
                         Jumlah = If(String.IsNullOrEmpty(lbl_banyak.Text), 0, CInt(lbl_banyak.Text)) + CInt(Jumlah) - CInt(JumlahLama)
                         txt_sub_total.Text = TotalHarga
                         txt_total.Text = TotalHarga
                         lbl_total.Text = TotalHarga
                         lbl_banyak.Text = Jumlah
+
+
+
                         Sql = String.Format("UPDATE tb_transaksi SET jml_beli = {0} WHERE no_faktur = '{1}' AND id_barang = {2}", JumlahRead, txt_no_faktur.Text, KdBarang)
                         kon.Execute(Sql)
+
+                        Sql = String.Format("UPDATE tb_barang SET stok = {0} WHERE id_barang = {1}", CInt(Stok) - CInt(JumlahRead), KdBarang)
+                        kon.Execute(Sql)
+
                         MessageBox.Show("Berhasil Perbarui Keranjang", "Info")
 
                         txt_set_potongan.Text = "0"
@@ -170,6 +218,29 @@
                         Harga = rek.Fields("harga").Value
                         TotalHarga = rek.Fields("harga").Value * Jumlah
 
+                        rek.Close()
+                        Sql = String.Format("SELECT * FROM tb_barang where id_barang = '{0}'", KdBarang)
+                        rek.Open(Sql, kon, 3, 2)
+                        Stok = 0
+                        If Not rek.EOF Then
+                            Stok = rek.Fields("stok").Value
+                            rek.Close()
+                            If Stok < JumlahRead Then
+                                DataGridView1.Rows(row).Cells(0).Value = ""
+                                DataGridView1.Rows(row).Cells(1).Value = ""
+                                DataGridView1.Rows(row).Cells(2).Value = ""
+                                DataGridView1.Rows(row).Cells(3).Value = ""
+                                DataGridView1.Rows(row).Cells(4).Value = ""
+
+                                MessageBox.Show("Stok barang sudah habis", "Info")
+                                tutup()
+                                Return
+
+                            End If
+                        End If
+
+
+
                         DataGridView1.Rows(row).Cells(1).Value = NamaBarang
                         DataGridView1.Rows(row).Cells(2).Value = Harga
                         DataGridView1.Rows(row).Cells(4).Value = TotalHarga
@@ -181,13 +252,17 @@
                         lbl_total.Text = TotalHarga
                         lbl_banyak.Text = Jumlah
 
-                        rek.Close()
                         Dim IdPelanggan As Integer
                         Sql = String.Format("SELECT * FROM tb_pelanggan where nama = '{0}'", cmb_pelanggan.Text)
                         rek.Open(Sql, kon, 3, 2)
                         If Not rek.EOF Then
                             IdPelanggan = rek.Fields("id_pelanggan").Value
                         End If
+                        rek.Close()
+
+
+                        Sql = String.Format("UPDATE tb_barang SET stok = {0} WHERE id_barang = {1}", CInt(Stok) - CInt(JumlahRead), KdBarang)
+                        kon.Execute(Sql)
 
                         Sql = "INSERT INTO `tb_transaksi`(`id_pelanggan`, `id_barang`, `no_faktur`, `jml_beli`, `tgl_beli`) VALUES ('" & IdPelanggan & "','" & KdBarang & "','" & txt_no_faktur.Text & "','" & JumlahRead & "' ,'" & txt_tgl_faktur.Text & "')"
                         kon.Execute(Sql)
@@ -316,6 +391,14 @@
                 IdPelanggan = rek.Fields("id_pelanggan").Value
             End If
 
+            Sql = String.Format("SELECT * FROM tb_barang where id_barang = '{0}'", KdBarang)
+            rek.Open(Sql, kon, 3, 2)
+            Dim Stok As Integer
+            Stok = 0
+            If Not rek.EOF Then
+                Stok = rek.Fields("stok").Value
+            End If
+
             rek.Close()
             Sql = String.Format("SELECT a.jml_beli, b.harga FROM tb_transaksi a join tb_barang b on a.id_barang = b.id_barang  where a.id_barang = '{0}' AND a.id_pelanggan = {1} AND a.no_faktur = '{2}'", KdBarang, IdPelanggan, NoFaktur)
             rek.Open(Sql, kon, 3, 2)
@@ -330,7 +413,12 @@
                 lbl_total.Text = txt_sub_total.Text
                 txt_bayar.Text = "0"
                 lbl_kembali.Text = "0"
+                Stok += CInt(rek.Fields("jml_beli").Value)
+                Sql = String.Format("UPDATE tb_barang SET stok = {0} WHERE id_barang = {1}", Stok, KdBarang)
+                kon.Execute(Sql)
             End If
+
+
 
             Sql = "DELETE FROM tb_transaksi WHERE id_barang = '" & KdBarang & "' AND id_pelanggan = '" & IdPelanggan & "' AND no_faktur = '" & NoFaktur & "' "
             kon.Execute(Sql)
@@ -379,27 +467,29 @@
         If keyData = Keys.F5 Then
             FakturBaru()
         End If
+        If keyData = Keys.F4 Then
+            BarangForm.ShowDialog()
+        End If
+        If keyData = Keys.F6 Then
+            PelangganForm.ShowDialog()
+        End If
         If keyData = Keys.Escape Then
             Me.Close()
         End If
         If keyData = Keys.F2 Then
             DataGridView1.ClearSelection()
             DataGridView1.CurrentCell = DataGridView1.Item("Kode", 0)
-
             DataGridView1.BeginEdit(True)
-
         End If
 
         Return MyBase.ProcessDialogKey(keyData)
     End Function
 
+    Private Sub btn_barang_Click(sender As Object, e As EventArgs) Handles btn_barang.Click
+        BarangForm.ShowDialog()
+    End Sub
 
-    'Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_pelanggan.SelectedIndexChanged
-    '    buka()
-    '    rek.Open("select * from tb_pelanggan", kon, 3, 2)
-    '    If Not rek.EOF Then
-    '        Me.cmb_pelanggan.Text = rek.Fields("nama").Value
-    '    End If
-    '    tutup()
-    'End Sub
+    Private Sub btn_pelanggan_Click(sender As Object, e As EventArgs) Handles btn_pelanggan.Click
+        PelangganForm.ShowDialog()
+    End Sub
 End Class

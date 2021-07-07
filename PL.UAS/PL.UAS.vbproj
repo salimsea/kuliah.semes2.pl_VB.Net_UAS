@@ -120,6 +120,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Barang.resx">
+      <DependentUpon>Barang.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Faktur.resx">
       <DependentUpon>Faktur.vb</DependentUpon>
     </EmbeddedResource>
@@ -131,6 +134,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pelanggan.resx">
+      <DependentUpon>Pelanggan.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -28,7 +28,7 @@ Partial Class Faktur
         Me.lbl_banyak = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.cmb_pelanggan = New System.Windows.Forms.ComboBox()
-        Me.Button6 = New System.Windows.Forms.Button()
+        Me.btn_pelanggan = New System.Windows.Forms.Button()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -36,6 +36,11 @@ Partial Class Faktur
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txt_set_potongan = New System.Windows.Forms.TextBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Kode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Barang = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Harga = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Banyak = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.btn_faktur_baru = New System.Windows.Forms.Button()
@@ -53,18 +58,13 @@ Partial Class Faktur
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txt_sub_total = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.btn_barang = New System.Windows.Forms.Button()
         Me.txt_tgl_faktur = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txt_no_faktur = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btn_refresh = New System.Windows.Forms.Button()
         Me.btn_hapus_baris = New System.Windows.Forms.Button()
-        Me.Kode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Barang = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Harga = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Banyak = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -120,31 +120,34 @@ Partial Class Faktur
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.cmb_pelanggan)
-        Me.GroupBox3.Controls.Add(Me.Button6)
+        Me.GroupBox3.Controls.Add(Me.btn_pelanggan)
         Me.GroupBox3.Controls.Add(Me.Label10)
         Me.GroupBox3.Location = New System.Drawing.Point(579, 12)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(380, 101)
         Me.GroupBox3.TabIndex = 2
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Pelanggan [Shift+F12]"
+        Me.GroupBox3.Text = "Pelanggan [F6]"
         '
         'cmb_pelanggan
         '
+        Me.cmb_pelanggan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmb_pelanggan.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.cmb_pelanggan.FormattingEnabled = True
         Me.cmb_pelanggan.Location = New System.Drawing.Point(70, 34)
         Me.cmb_pelanggan.Name = "cmb_pelanggan"
         Me.cmb_pelanggan.Size = New System.Drawing.Size(290, 21)
+        Me.cmb_pelanggan.Sorted = True
         Me.cmb_pelanggan.TabIndex = 25
         '
-        'Button6
+        'btn_pelanggan
         '
-        Me.Button6.Location = New System.Drawing.Point(20, 62)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(340, 23)
-        Me.Button6.TabIndex = 24
-        Me.Button6.Text = "Tambah Pelanggan"
-        Me.Button6.UseVisualStyleBackColor = True
+        Me.btn_pelanggan.Location = New System.Drawing.Point(20, 62)
+        Me.btn_pelanggan.Name = "btn_pelanggan"
+        Me.btn_pelanggan.Size = New System.Drawing.Size(340, 23)
+        Me.btn_pelanggan.TabIndex = 24
+        Me.btn_pelanggan.Text = "Tambah Pelanggan"
+        Me.btn_pelanggan.UseVisualStyleBackColor = True
         '
         'Label10
         '
@@ -178,7 +181,7 @@ Partial Class Faktur
         Me.GroupBox4.Controls.Add(Me.Label4)
         Me.GroupBox4.Controls.Add(Me.txt_sub_total)
         Me.GroupBox4.Controls.Add(Me.Label3)
-        Me.GroupBox4.Controls.Add(Me.Button3)
+        Me.GroupBox4.Controls.Add(Me.btn_barang)
         Me.GroupBox4.Controls.Add(Me.txt_tgl_faktur)
         Me.GroupBox4.Controls.Add(Me.Label2)
         Me.GroupBox4.Controls.Add(Me.txt_no_faktur)
@@ -236,6 +239,35 @@ Partial Class Faktur
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.Size = New System.Drawing.Size(742, 288)
         Me.DataGridView1.TabIndex = 23
+        '
+        'Kode
+        '
+        Me.Kode.HeaderText = "Kode"
+        Me.Kode.Name = "Kode"
+        Me.Kode.Width = 135
+        '
+        'Barang
+        '
+        Me.Barang.HeaderText = "Barang"
+        Me.Barang.Name = "Barang"
+        Me.Barang.Width = 180
+        '
+        'Harga
+        '
+        Me.Harga.HeaderText = "Harga"
+        Me.Harga.Name = "Harga"
+        Me.Harga.Width = 130
+        '
+        'Banyak
+        '
+        Me.Banyak.HeaderText = "Banyak"
+        Me.Banyak.Name = "Banyak"
+        '
+        'Total
+        '
+        Me.Total.HeaderText = "Total"
+        Me.Total.Name = "Total"
+        Me.Total.Width = 150
         '
         'PictureBox2
         '
@@ -395,14 +427,14 @@ Partial Class Faktur
         Me.Label3.TabIndex = 7
         Me.Label3.Text = "Sub Total"
         '
-        'Button3
+        'btn_barang
         '
-        Me.Button3.Location = New System.Drawing.Point(237, 394)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(236, 51)
-        Me.Button3.TabIndex = 6
-        Me.Button3.Text = "[F4] - Tambah Barang"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.btn_barang.Location = New System.Drawing.Point(237, 394)
+        Me.btn_barang.Name = "btn_barang"
+        Me.btn_barang.Size = New System.Drawing.Size(236, 51)
+        Me.btn_barang.TabIndex = 6
+        Me.btn_barang.Text = "[F4] - Tambah Barang"
+        Me.btn_barang.UseVisualStyleBackColor = True
         '
         'txt_tgl_faktur
         '
@@ -453,35 +485,6 @@ Partial Class Faktur
         Me.btn_hapus_baris.TabIndex = 0
         Me.btn_hapus_baris.Text = "[F12] - Hapus Baris"
         Me.btn_hapus_baris.UseVisualStyleBackColor = True
-        '
-        'Kode
-        '
-        Me.Kode.HeaderText = "Kode"
-        Me.Kode.Name = "Kode"
-        Me.Kode.Width = 135
-        '
-        'Barang
-        '
-        Me.Barang.HeaderText = "Barang"
-        Me.Barang.Name = "Barang"
-        Me.Barang.Width = 180
-        '
-        'Harga
-        '
-        Me.Harga.HeaderText = "Harga"
-        Me.Harga.Name = "Harga"
-        Me.Harga.Width = 130
-        '
-        'Banyak
-        '
-        Me.Banyak.HeaderText = "Banyak"
-        Me.Banyak.Name = "Banyak"
-        '
-        'Total
-        '
-        Me.Total.HeaderText = "Total"
-        Me.Total.Name = "Total"
-        Me.Total.Width = 150
         '
         'Faktur
         '
@@ -537,12 +540,12 @@ Partial Class Faktur
     Friend WithEvents Label4 As Label
     Friend WithEvents txt_sub_total As TextBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents Button3 As Button
+    Friend WithEvents btn_barang As Button
     Friend WithEvents lbl_total As Label
     Friend WithEvents lbl_banyak As Label
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents cmb_pelanggan As ComboBox
-    Friend WithEvents Button6 As Button
+    Friend WithEvents btn_pelanggan As Button
     Friend WithEvents Label10 As Label
     Friend WithEvents lbl_kembali As Label
     Friend WithEvents Label12 As Label
