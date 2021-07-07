@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Faktur
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Faktur
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.lbl_total = New System.Windows.Forms.Label()
@@ -31,13 +31,15 @@ Partial Class Faktur
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txt_kode_barang = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txt_set_potongan = New System.Windows.Forms.TextBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.btn_faktur_baru = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Me.btn_keluar = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.lbl_kembali = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -56,8 +58,13 @@ Partial Class Faktur
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txt_no_faktur = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btn_refresh = New System.Windows.Forms.Button()
+        Me.btn_hapus_baris = New System.Windows.Forms.Button()
+        Me.Kode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Barang = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Harga = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Banyak = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -73,38 +80,42 @@ Partial Class Faktur
         Me.GroupBox1.Controls.Add(Me.lbl_total)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(434, 101)
+        Me.GroupBox1.Size = New System.Drawing.Size(410, 101)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Total"
         '
         'lbl_total
         '
-        Me.lbl_total.AutoSize = True
-        Me.lbl_total.Font = New System.Drawing.Font("Microsoft Sans Serif", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_total.Location = New System.Drawing.Point(17, 16)
+        Me.lbl_total.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_total.ForeColor = System.Drawing.Color.Red
+        Me.lbl_total.Location = New System.Drawing.Point(6, 16)
         Me.lbl_total.Name = "lbl_total"
-        Me.lbl_total.Size = New System.Drawing.Size(0, 73)
+        Me.lbl_total.Size = New System.Drawing.Size(398, 76)
         Me.lbl_total.TabIndex = 0
+        Me.lbl_total.Text = "0"
+        Me.lbl_total.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.lbl_banyak)
-        Me.GroupBox2.Location = New System.Drawing.Point(452, 12)
+        Me.GroupBox2.Location = New System.Drawing.Point(428, 12)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(121, 101)
+        Me.GroupBox2.Size = New System.Drawing.Size(145, 101)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Banyak"
         '
         'lbl_banyak
         '
-        Me.lbl_banyak.AutoSize = True
-        Me.lbl_banyak.Font = New System.Drawing.Font("Microsoft Sans Serif", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_banyak.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_banyak.ForeColor = System.Drawing.Color.Red
         Me.lbl_banyak.Location = New System.Drawing.Point(6, 19)
         Me.lbl_banyak.Name = "lbl_banyak"
-        Me.lbl_banyak.Size = New System.Drawing.Size(0, 73)
+        Me.lbl_banyak.Size = New System.Drawing.Size(133, 73)
         Me.lbl_banyak.TabIndex = 1
+        Me.lbl_banyak.Text = "0"
+        Me.lbl_banyak.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'GroupBox3
         '
@@ -146,13 +157,15 @@ Partial Class Faktur
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.Label8)
+        Me.GroupBox4.Controls.Add(Me.txt_kode_barang)
         Me.GroupBox4.Controls.Add(Me.Label12)
         Me.GroupBox4.Controls.Add(Me.txt_set_potongan)
         Me.GroupBox4.Controls.Add(Me.DataGridView1)
         Me.GroupBox4.Controls.Add(Me.PictureBox2)
         Me.GroupBox4.Controls.Add(Me.PictureBox1)
         Me.GroupBox4.Controls.Add(Me.btn_faktur_baru)
-        Me.GroupBox4.Controls.Add(Me.Button4)
+        Me.GroupBox4.Controls.Add(Me.btn_keluar)
         Me.GroupBox4.Controls.Add(Me.GroupBox5)
         Me.GroupBox4.Controls.Add(Me.Label7)
         Me.GroupBox4.Controls.Add(Me.Label6)
@@ -170,14 +183,32 @@ Partial Class Faktur
         Me.GroupBox4.Controls.Add(Me.Label2)
         Me.GroupBox4.Controls.Add(Me.txt_no_faktur)
         Me.GroupBox4.Controls.Add(Me.Label1)
-        Me.GroupBox4.Controls.Add(Me.Button2)
-        Me.GroupBox4.Controls.Add(Me.Button1)
+        Me.GroupBox4.Controls.Add(Me.btn_refresh)
+        Me.GroupBox4.Controls.Add(Me.btn_hapus_baris)
         Me.GroupBox4.Location = New System.Drawing.Point(13, 120)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(946, 462)
         Me.GroupBox4.TabIndex = 1
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Faktur [F2]"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(12, 337)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(69, 13)
+        Me.Label8.TabIndex = 27
+        Me.Label8.Text = "Kode Barang"
+        '
+        'txt_kode_barang
+        '
+        Me.txt_kode_barang.Location = New System.Drawing.Point(15, 358)
+        Me.txt_kode_barang.Name = "txt_kode_barang"
+        Me.txt_kode_barang.Size = New System.Drawing.Size(168, 20)
+        Me.txt_kode_barang.TabIndex = 26
+        Me.txt_kode_barang.Text = "0"
+        Me.txt_kode_barang.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label12
         '
@@ -191,6 +222,7 @@ Partial Class Faktur
         'txt_set_potongan
         '
         Me.txt_set_potongan.Location = New System.Drawing.Point(574, 362)
+        Me.txt_set_potongan.MaxLength = 100
         Me.txt_set_potongan.Name = "txt_set_potongan"
         Me.txt_set_potongan.Size = New System.Drawing.Size(20, 20)
         Me.txt_set_potongan.TabIndex = 24
@@ -199,6 +231,7 @@ Partial Class Faktur
         '
         Me.DataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Kode, Me.Barang, Me.Harga, Me.Banyak, Me.Total})
         Me.DataGridView1.Location = New System.Drawing.Point(15, 29)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.Size = New System.Drawing.Size(742, 288)
@@ -219,28 +252,28 @@ Partial Class Faktur
         Me.PictureBox1.Image = Global.PL.UAS.My.Resources.Resources.Screenshot_4
         Me.PictureBox1.Location = New System.Drawing.Point(787, 174)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(139, 99)
+        Me.PictureBox1.Size = New System.Drawing.Size(139, 111)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 21
         Me.PictureBox1.TabStop = False
         '
         'btn_faktur_baru
         '
-        Me.btn_faktur_baru.Location = New System.Drawing.Point(787, 145)
+        Me.btn_faktur_baru.Location = New System.Drawing.Point(787, 141)
         Me.btn_faktur_baru.Name = "btn_faktur_baru"
         Me.btn_faktur_baru.Size = New System.Drawing.Size(139, 23)
         Me.btn_faktur_baru.TabIndex = 20
-        Me.btn_faktur_baru.Text = "Faktur Baru"
+        Me.btn_faktur_baru.Text = "[F5] - Faktur Baru"
         Me.btn_faktur_baru.UseVisualStyleBackColor = True
         '
-        'Button4
+        'btn_keluar
         '
-        Me.Button4.Location = New System.Drawing.Point(787, 422)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(139, 23)
-        Me.Button4.TabIndex = 19
-        Me.Button4.Text = "Keluar"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.btn_keluar.Location = New System.Drawing.Point(787, 422)
+        Me.btn_keluar.Name = "btn_keluar"
+        Me.btn_keluar.Size = New System.Drawing.Size(139, 23)
+        Me.btn_keluar.TabIndex = 19
+        Me.btn_keluar.Text = "[ESC] - Keluar"
+        Me.btn_keluar.UseVisualStyleBackColor = True
         '
         'GroupBox5
         '
@@ -254,14 +287,14 @@ Partial Class Faktur
         '
         'lbl_kembali
         '
-        Me.lbl_kembali.AutoSize = True
         Me.lbl_kembali.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_kembali.ForeColor = System.Drawing.Color.Red
-        Me.lbl_kembali.Location = New System.Drawing.Point(12, 20)
+        Me.lbl_kembali.Location = New System.Drawing.Point(3, 16)
         Me.lbl_kembali.Name = "lbl_kembali"
-        Me.lbl_kembali.Size = New System.Drawing.Size(21, 24)
+        Me.lbl_kembali.Size = New System.Drawing.Size(130, 28)
         Me.lbl_kembali.TabIndex = 0
         Me.lbl_kembali.Text = "0"
+        Me.lbl_kembali.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label7
         '
@@ -287,6 +320,7 @@ Partial Class Faktur
         Me.txt_bayar.Size = New System.Drawing.Size(139, 20)
         Me.txt_bayar.TabIndex = 15
         Me.txt_bayar.Text = "0"
+        Me.txt_bayar.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txt_total
         '
@@ -295,6 +329,7 @@ Partial Class Faktur
         Me.txt_total.Size = New System.Drawing.Size(139, 20)
         Me.txt_total.TabIndex = 14
         Me.txt_total.Text = "0"
+        Me.txt_total.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label5
         '
@@ -312,6 +347,7 @@ Partial Class Faktur
         Me.txt_ppn.Size = New System.Drawing.Size(139, 20)
         Me.txt_ppn.TabIndex = 12
         Me.txt_ppn.Text = "0"
+        Me.txt_ppn.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'cbx_ppn
         '
@@ -330,6 +366,7 @@ Partial Class Faktur
         Me.txt_tot_potongan.Size = New System.Drawing.Size(139, 20)
         Me.txt_tot_potongan.TabIndex = 10
         Me.txt_tot_potongan.Text = "0"
+        Me.txt_tot_potongan.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label4
         '
@@ -347,6 +384,7 @@ Partial Class Faktur
         Me.txt_sub_total.Size = New System.Drawing.Size(139, 20)
         Me.txt_sub_total.TabIndex = 8
         Me.txt_sub_total.Text = "0"
+        Me.txt_sub_total.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label3
         '
@@ -359,11 +397,11 @@ Partial Class Faktur
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(15, 391)
+        Me.Button3.Location = New System.Drawing.Point(237, 394)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(168, 23)
+        Me.Button3.Size = New System.Drawing.Size(236, 51)
         Me.Button3.TabIndex = 6
-        Me.Button3.Text = "Barang"
+        Me.Button3.Text = "[F4] - Tambah Barang"
         Me.Button3.UseVisualStyleBackColor = True
         '
         'txt_tgl_faktur
@@ -398,41 +436,69 @@ Partial Class Faktur
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "No. Faktur Jual"
         '
-        'Button2
+        'btn_refresh
         '
-        Me.Button2.Location = New System.Drawing.Point(15, 362)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(168, 23)
-        Me.Button2.TabIndex = 1
-        Me.Button2.Text = "Refresh Barang"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btn_refresh.Location = New System.Drawing.Point(15, 420)
+        Me.btn_refresh.Name = "btn_refresh"
+        Me.btn_refresh.Size = New System.Drawing.Size(168, 23)
+        Me.btn_refresh.TabIndex = 1
+        Me.btn_refresh.Text = "[F1] - Refresh Barang"
+        Me.btn_refresh.UseVisualStyleBackColor = True
         '
-        'Button1
+        'btn_hapus_baris
         '
-        Me.Button1.Location = New System.Drawing.Point(15, 333)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(168, 23)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Hapus Baris"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btn_hapus_baris.Location = New System.Drawing.Point(15, 387)
+        Me.btn_hapus_baris.Name = "btn_hapus_baris"
+        Me.btn_hapus_baris.Size = New System.Drawing.Size(168, 23)
+        Me.btn_hapus_baris.TabIndex = 0
+        Me.btn_hapus_baris.Text = "[F12] - Hapus Baris"
+        Me.btn_hapus_baris.UseVisualStyleBackColor = True
+        '
+        'Kode
+        '
+        Me.Kode.HeaderText = "Kode"
+        Me.Kode.Name = "Kode"
+        Me.Kode.Width = 135
+        '
+        'Barang
+        '
+        Me.Barang.HeaderText = "Barang"
+        Me.Barang.Name = "Barang"
+        Me.Barang.Width = 180
+        '
+        'Harga
+        '
+        Me.Harga.HeaderText = "Harga"
+        Me.Harga.Name = "Harga"
+        Me.Harga.Width = 130
+        '
+        'Banyak
+        '
+        Me.Banyak.HeaderText = "Banyak"
+        Me.Banyak.Name = "Banyak"
+        '
+        'Total
+        '
+        Me.Total.HeaderText = "Total"
+        Me.Total.Name = "Total"
+        Me.Total.Width = 150
         '
         'Faktur
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.ClientSize = New System.Drawing.Size(975, 594)
+        Me.ClientSize = New System.Drawing.Size(974, 595)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.IsMdiContainer = True
         Me.Name = "Faktur"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "CASEER"
         Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
@@ -441,7 +507,6 @@ Partial Class Faktur
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox5.ResumeLayout(False)
-        Me.GroupBox5.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -452,14 +517,14 @@ Partial Class Faktur
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents txt_no_faktur As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btn_refresh As Button
+    Friend WithEvents btn_hapus_baris As Button
     Friend WithEvents txt_tgl_faktur As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents btn_faktur_baru As Button
-    Friend WithEvents Button4 As Button
+    Friend WithEvents btn_keluar As Button
     Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents Label7 As Label
     Friend WithEvents Label6 As Label
@@ -482,4 +547,11 @@ Partial Class Faktur
     Friend WithEvents lbl_kembali As Label
     Friend WithEvents Label12 As Label
     Friend WithEvents txt_set_potongan As TextBox
+    Friend WithEvents Label8 As Label
+    Friend WithEvents txt_kode_barang As TextBox
+    Friend WithEvents Kode As DataGridViewTextBoxColumn
+    Friend WithEvents Barang As DataGridViewTextBoxColumn
+    Friend WithEvents Harga As DataGridViewTextBoxColumn
+    Friend WithEvents Banyak As DataGridViewTextBoxColumn
+    Friend WithEvents Total As DataGridViewTextBoxColumn
 End Class
